@@ -7,8 +7,10 @@
 //
 
 #import "ViewController.h"
+#import "WASVerifyCodeView.h"
 
 @interface ViewController ()
+@property (weak, nonatomic) IBOutlet UILabel *verifyCode;
 
 @end
 
@@ -16,7 +18,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+
+}
+- (IBAction)clickMe:(id)sender {
+    __weak typeof(self) weakSelf = self;
+    [WASVerifyCodeView showVerifyCodeViewOnView:self.view accountId:@"13123123123" verifyCodeBlock:^(NSString *code) {
+        weakSelf.verifyCode.text = [NSString stringWithFormat:@"验证码是：%@",code];
+    }];
 }
 
 
